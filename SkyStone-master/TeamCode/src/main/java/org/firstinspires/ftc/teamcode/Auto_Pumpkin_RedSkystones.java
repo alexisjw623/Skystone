@@ -12,8 +12,8 @@ import static java.lang.Double.NaN;
 /*
  * Created by Sam on 2/27/2020
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Auto_Pumpkin: BLUE Skystone", group="Pumpkin: BLUE")
-public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Auto_Pumpkin: RED Skystone", group="Pumpkin: RED")
+public class Auto_Pumpkin_RedSkystones extends LinearOpMode {
     Hardware_MecanumUPDATED autopumpkin = new Hardware_MecanumUPDATED();
 
     static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: TETRIX Motor Encoder
@@ -38,23 +38,23 @@ public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
         waitForStart();
 
         /*
-            starts with FRONT facing towards foundation side
+            starts with BACK facing towards foundation side
         */
 
 
-        //move backwards toward building site
-        movement(-.5, -.5, -.5, -.5);
+        //move forwardstoward building site
+        movement(.5, .5, .5, .5);
         sleep(1000);// CHECK THIS VALUE FOR GOING BACK FAR/CLOSE ENOUGH
         movement(0, 0, 0, 0);
         sleep(100);
 
-        //move right towards skystones, wait until it sees it
-        NSmoveRightTowardsStones();
+        //move left towards skystones, wait until it sees it
+        NSmoveLeftTowardsStones();
         sleep(400);// pause
 
-        //move backwards to find skystone and grab it once found
+        //move forwards to find skystone and grab it once found
         while (!autopumpkin.isSkystone()) {
-            movement(-0.3, -0.3, -0.3, -0.3);
+            movement(0.3, 0.3, 0.3, 0.3);
         }
         //sleep(100);// CHECK THIS VALUE FOR MIDDLE OF STONE
         movement(0,0,0,0);
@@ -66,8 +66,8 @@ public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
         dropStone();
 
         //go park next to bridge
-        while (!autopumpkin.parkBlue()) {
-            movement(-.5, -.5, -.5, -.5);
+        while (!autopumpkin.parkRed()) {
+            movement(.5, .5, .5, .5);
         }
 
 
@@ -92,9 +92,9 @@ public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
         while ( autopumpkin.touchSensor.getState()){
             autopumpkin.openClawSlight();
             sleep(500);
-            movement(0.3,-0.3,-0.3,0.3);//move right slightly
+            movement(-0.3,0.3,0.3,-0.3);//move left slightly
             sleep(300);
-            movement(-0.3,-0.3,-0.3,-0.3); //move backwards slightly)
+            movement(0.3,0.3,0.3,0.3); //move forwards slightly)
             sleep(150);
             movement(0,0,0,0);
 
@@ -104,7 +104,6 @@ public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
 
             autopumpkin.closeClaw();
             sleep(1200);
-
             stoneCount += 1;
         }
 
@@ -113,7 +112,7 @@ public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
 
         //if we had to adjust to get the Stone
         if ( stoneCount > 0 ){
-            movement(-0.3, 0.3, 0.3, -0.3);
+            movement(0.3, -0.3, -0.3, 0.3);
             int sleepCount = stoneCount * 300;
             sleep( sleepCount);
             movement(0,0,0,0);
@@ -146,16 +145,16 @@ public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
         movement(0, 0, 0, 0);
     }
 
-    public void NSmoveRightTowardsStones() {
-        movement(0.5, -0.5, -0.5, 0.5);
+    public void NSmoveLeftTowardsStones() {
+        movement(-0.5, 0.5, 0.5, -0.5);
         sleep(1400);// CHECK THIS FOR MOVEMENT TOWARDS STONES
         movement(0, 0, 0, 0);
     }
 
     public void SENSmoveTowardsFoundation() {
         //looks for tape to go over
-        while (!autopumpkin.parkBlue()) {
-            movement(SLOWDRIVE_SPEED, SLOWDRIVE_SPEED, SLOWDRIVE_SPEED, SLOWDRIVE_SPEED);
+        while (!autopumpkin.parkRed()) {
+            movement(-SLOWDRIVE_SPEED, -SLOWDRIVE_SPEED, -SLOWDRIVE_SPEED, -SLOWDRIVE_SPEED);
         }
         sleep(750);// CHECK THIS VALUE TO MAKE SURE IT MOVES PAST THE BRIDGE TAPE
         movement(0, 0, 0, 0);
