@@ -20,16 +20,15 @@ import java.util.Locale;
 @TeleOp(name="TeleOp: Mecanum_UPDATED", group="Linear Opmode")
 public class TeleOp_MecanumTest_v1 extends LinearOpMode{
     Hardware_MecanumUPDATED pumpkin1 = new Hardware_MecanumUPDATED();
-    double rotatePosition, liftPosition, servoSpeed, rotateSpeed, fmoverPosition, armSpeed;
+    double rotatePosition = 1, liftPosition, servoSpeed, rotateSpeed, fmoverPosition, armSpeed;
     double MIN_POSITION = 0; double MAX_POSITION = 1;
     double colorCondition;
 
     @Override
     public void runOpMode() {
         pumpkin1.init(hardwareMap);
+        pumpkin1.clawControl.setPosition(1);
         waitForStart();
-
-        pumpkin1.closeClaw();
 
         servoSpeed = .25;
         rotateSpeed = .2;
@@ -69,10 +68,15 @@ public class TeleOp_MecanumTest_v1 extends LinearOpMode{
                 pumpkin1.RCompliantmotor.setPower(0);
             }
 
-
+            if ( gamepad1.right_stick_button ) {
+                pumpkin1.rotateArmOut();
+                pumpkin1.FourBarmotor.setPower(.3);
+                sleep(pumpkin1.getMotorArmSleep());
+                pumpkin1.FourBarmotor.setPower(0);
+            }
             /* FOUR BAR - right/left bumper */
-            boolean raiseBar = gamepad1.left_bumper;
-            boolean lowerBar = gamepad1.right_bumper;
+            boolean raiseBar = gamepad1.right_bumper;
+            boolean lowerBar = gamepad1.left_bumper;
 
             if (raiseBar) pumpkin1.FourBarmotor.setPower(armSpeed);
             else if (lowerBar) pumpkin1.FourBarmotor.setPower(-armSpeed);

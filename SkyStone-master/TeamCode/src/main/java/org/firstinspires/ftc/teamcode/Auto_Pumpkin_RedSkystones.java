@@ -32,7 +32,6 @@ public class Auto_Pumpkin_RedSkystones extends LinearOpMode {
     public void runOpMode() {
 
         autopumpkin.init(hardwareMap);
-        autopumpkin.rotateArmOut();
         autopumpkin.openClaw();
 
         waitForStart();
@@ -42,14 +41,15 @@ public class Auto_Pumpkin_RedSkystones extends LinearOpMode {
         */
 
 
-        //move forwardstoward building site
+        //move forwards toward building site
         movement(.5, .5, .5, .5);
         sleep(1000);// CHECK THIS VALUE FOR GOING BACK FAR/CLOSE ENOUGH
+        autopumpkin.rotateArmOut();
         movement(0, 0, 0, 0);
         sleep(100);
 
         //move left towards skystones, wait until it sees it
-        NSmoveLeftTowardsStones();
+        NSmoveRightTowardsStones();
         sleep(400);// pause
 
         //move forwards to find skystone and grab it once found
@@ -89,13 +89,15 @@ public class Auto_Pumpkin_RedSkystones extends LinearOpMode {
         sleep(1200);
 
         // getState() returns TRUE if NOT PRESSED
-        while ( autopumpkin.touchSensor.getState()){
+        while ( autopumpkin.touchSensor.getState() && stoneCount < 2){
             autopumpkin.openClawSlight();
             sleep(500);
-            movement(-0.3,0.3,0.3,-0.3);//move left slightly
+            movement(0.3,-0.3,-0.3,0.3);//move right slightly
             sleep(300);
-            movement(0.3,0.3,0.3,0.3); //move forwards slightly)
-            sleep(150);
+            if ( stoneCount == 1 ) {
+                movement(0.3, 0.3,0.3, 0.3); //move forwards slightly)
+                sleep(150);
+            }
             movement(0,0,0,0);
 
             autopumpkin.FourBarmotor.setPower(.3);
@@ -104,6 +106,7 @@ public class Auto_Pumpkin_RedSkystones extends LinearOpMode {
 
             autopumpkin.closeClaw();
             sleep(1200);
+
             stoneCount += 1;
         }
 
@@ -112,11 +115,15 @@ public class Auto_Pumpkin_RedSkystones extends LinearOpMode {
 
         //if we had to adjust to get the Stone
         if ( stoneCount > 0 ){
-            movement(0.3, -0.3, -0.3, 0.3);
+            movement(-0.3, 0.3, 0.3, -0.3);
             int sleepCount = stoneCount * 300;
             sleep( sleepCount);
             movement(0,0,0,0);
         }
+
+        movement(-0.5,0.5,0.5,-0.5);
+        sleep(1500);
+        movement(0,0,0,0);
     }
 
     public void dropStone() {
@@ -145,9 +152,9 @@ public class Auto_Pumpkin_RedSkystones extends LinearOpMode {
         movement(0, 0, 0, 0);
     }
 
-    public void NSmoveLeftTowardsStones() {
-        movement(-0.5, 0.5, 0.5, -0.5);
-        sleep(1400);// CHECK THIS FOR MOVEMENT TOWARDS STONES
+    public void NSmoveRightTowardsStones() {
+        movement(0.5, -0.5, -0.5, 0.5);
+        sleep(1400);// CHECK THIS FOR MOVEMENT TOWARDS STONE)
         movement(0, 0, 0, 0);
     }
 

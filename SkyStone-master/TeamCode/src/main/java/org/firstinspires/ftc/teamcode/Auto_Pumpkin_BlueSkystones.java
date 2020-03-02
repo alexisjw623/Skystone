@@ -32,7 +32,6 @@ public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
     public void runOpMode() {
 
         autopumpkin.init(hardwareMap);
-        autopumpkin.rotateArmOut();
         autopumpkin.openClaw();
 
         waitForStart();
@@ -45,6 +44,7 @@ public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
         //move backwards toward building site
         movement(-.5, -.5, -.5, -.5);
         sleep(1000);// CHECK THIS VALUE FOR GOING BACK FAR/CLOSE ENOUGH
+        autopumpkin.rotateArmOut();
         movement(0, 0, 0, 0);
         sleep(100);
 
@@ -89,13 +89,15 @@ public class Auto_Pumpkin_BlueSkystones extends LinearOpMode {
         sleep(1200);
 
         // getState() returns TRUE if NOT PRESSED
-        while ( autopumpkin.touchSensor.getState()){
+        while ( autopumpkin.touchSensor.getState() || stoneCount < 3){
             autopumpkin.openClawSlight();
             sleep(500);
             movement(0.3,-0.3,-0.3,0.3);//move right slightly
             sleep(300);
-            movement(-0.3,-0.3,-0.3,-0.3); //move backwards slightly)
-            sleep(150);
+            if ( stoneCount == 1 ) {
+                movement(-0.3, -0.3, -0.3, -0.3); //move backwards slightly)
+                sleep(150);
+            }
             movement(0,0,0,0);
 
             autopumpkin.FourBarmotor.setPower(.3);

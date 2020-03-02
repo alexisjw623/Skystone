@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 /*
  * Created by Sam on 2/25/2020
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="NO_SENSORS: Drive LEFT ONLY", group="Pumpkin: NoSensors")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="NO_SENSORS: Drive FORWARD only", group="Pumpkin: NoSensors")
 public class Auto_Pumpkin_NOSENSOR_FORWARDonly extends LinearOpMode{
     Hardware_MecanumUPDATED autopumpkin = new Hardware_MecanumUPDATED();
     public void runOpMode(){
