@@ -81,10 +81,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="872" />
-    <option name="y" value="2" />
-    <option name="width" value="1059" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="871" />
+    <option name="y" value="1" />
+    <option name="width" value="1060" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
@@ -148,7 +148,7 @@
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="device.picker.selection" value="ZY223RPVJH" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Robotics-Skystone-v3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
   </component>
   <component name="RunDashboard">
