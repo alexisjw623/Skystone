@@ -36,13 +36,11 @@ public class TeleOp_MecanumTest_v1 extends LinearOpMode{
 
         while (opModeIsActive()) {
 
-
             //rotation - right joystick
             double rightX = -gamepad1.right_stick_x;
             //movement - left joystick
             double leftX = gamepad1.left_stick_x;
             double leftY = -gamepad1.left_stick_y;
-
 
             //driving
             pumpkin1.LFmotor.setPower(leftY + rightX + leftX );
